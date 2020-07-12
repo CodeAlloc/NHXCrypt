@@ -59,7 +59,7 @@ if encdec == "e":
 				write.write(chr(tudata).encode())
 				temp = temp + 1
 			else:
-				write.write(chr(ord(parandom[(count*mode) + i : (count*mode) + 1 + i])).encode())
+				write.write(chr(parandom[(count*mode) + i]).encode())
 				temp = temp + 1
 		count = count + 1
 	print("Info: The Encrypted data is written to the file specified.")
@@ -100,7 +100,7 @@ elif encdec == "d":
 			except ValueError:
 				print("Error: Incorrect Mode/Password caused crash during value altering")
 				exit(404)
-		write.write(tudata.encode())
+		write.write(tudata.encode("latin"))
 		count = count + 1
 	print("Info: The Decrypted data is written to the file specified.")
 read.close()
