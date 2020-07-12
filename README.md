@@ -39,4 +39,4 @@ Using this tool is simple. One argument is required, which is the image file to 
 $ NHXHide <data file: input> <file name for output (overwritten if exixts)>
 ```
 
-[NHXCrypt.py]: <https://github.com/chmuhammadsohaib/NHXCrypt/NHXCrypt.py>
+[NHXCrypt.py]: <https://github.com/chmuhammadsohaib/NHXCrypt/blob/master/NHXCrypt.py>
