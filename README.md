@@ -31,17 +31,16 @@ pip3 install NHXCrypt
 To use it as a tool, Download: [NHXCrypt.py] and use it via python3 shell:
 
 ```sh
-$ python3 NHXHide.py
+$ python3 NHXCrypt.py
 ```
-or in Linux or MacOS, install the tool on path as follows:
+or in Linux or MacOS, directly as:
 ```sh
 $ git clone https://www.github.com/chmuhammadsohaib/NHXCrypt
 $ cd NHXCrypt
-$ chmod +x setup.sh
-$ ./setup.sh
+$ chmod +x NHXCrypt.py
+$ ./NHXCrypt0
 ```
 
-and afterward use the tool by just typing _NHXCrypt_ in any directory.
 ### Usage
 
 Using NHXCrypt as a tool is simple. One argument is required, which is the image file to read or write data to, and the second optional argument is the file to read the data from, to be written to image, or the file for writng back the extracted data from the image file.
