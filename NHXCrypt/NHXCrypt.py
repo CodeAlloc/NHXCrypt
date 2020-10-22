@@ -124,7 +124,7 @@ if __name__ == "__main__":
 	elif encdec == "d":
 		status = NHXCrypt(key, mode, sys.argv[1], sys.argv[2]).decrypt()
 	else:
-		print("Exitting...")
+		print("Exiting...")
 		exit(0)
 	if status == 404:
 		print("Error: Specified Data file doesn't exist")
