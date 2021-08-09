@@ -82,7 +82,6 @@ There are 6 different status codes:
 |500| Invalid Mode
 |505| No Key provided
 |600| Encrypted Text corrupted or wrong mode selected
-|606| Incorrect Mode/Password caused crash during value alteration
 
 Found NHXCrypt interesting? Go and Install it with just some simple steps!
 
