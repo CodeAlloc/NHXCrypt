@@ -107,8 +107,7 @@ class NHXCrypt:
 				try:
 					tudata = chr(ord(tudata) - diff)
 				except ValueError:
-					if self.verbose == True: raise SystemError("Incorrect Mode/Password")
-					return 606
+					tudata = chr((ord(tudata) - diff) * -1)
 			write.write(tudata.encode("latin"))
 			count = count + 1
 		return 0
@@ -137,9 +136,6 @@ if __name__ == "__main__":
 		exit(status)
 	elif status == 600:
 		print("Error: Encrypted Text is corrupted or wrong mode is selected")
-		exit(status)
-	elif status == 606:
-		print("Error: Incorrect Mode/Password caused crash during value alteration")
 		exit(status)
 	else:
 		print("Info: Operation Successful")
