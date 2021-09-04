@@ -38,7 +38,7 @@ or in Linux or MacOS, directly as:
 $ git clone https://www.github.com/chmuhammadsohaib/NHXCrypt
 $ cd NHXCrypt
 $ chmod +x NHXCrypt.py
-$ ./NHXCrypt0
+$ ./NHXCrypt.py
 ```
 
 ### Usage
@@ -46,7 +46,7 @@ $ ./NHXCrypt0
 Using NHXCrypt as a tool is simple. One argument is required, which is the image file to read or write data to, and the second optional argument is the file to read the data from, to be written to image, or the file for writng back the extracted data from the image file.
 
 ```sh
-$ NHXHide <data file: input> <file name for output (overwritten if exixts)>
+$ NHXCrypt <data file: input> <file name for output (overwritten if exixts)>
 ```
 
 To use it as a module, simply use it as follows:
