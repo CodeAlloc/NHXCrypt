@@ -1,5 +1,5 @@
 # NHXCrypt
-NHXCrypt is a tool that uses NHXCrypt-8--128 Algorithms to encrypt and decrypt the files using a single key.
+NHXCrypt is a tool that uses NHXCrypt--8-128 Algorithms to encrypt and decrypt the files using a single key.
 
   
 # Main Features:
@@ -46,7 +46,7 @@ $ ./NHXCrypt.py
 Using NHXCrypt as a tool is simple. One argument is required, which is the image file to read or write data to, and the second optional argument is the file to read the data from, to be written to image, or the file for writng back the extracted data from the image file.
 
 ```sh
-$ NHXCrypt <data file: input> <file name for output (overwritten if exixts)>
+$ NHXCrypt.py <data file: input> <file name for output (overwritten if exixts)>
 ```
 
 To use it as a module, simply use it as follows:
@@ -54,7 +54,7 @@ To use it as a module, simply use it as follows:
 ```sh
 import NHXCrypt
 
-handler = NHXCrypt.NHXCrypt(<key>, <mode>, <file name to encrypt>, <file name to output the encrypted data [overwritten if exists]>, verbose=<True/False [default=False]>)
+handler = NHXCrypt.NHXCrypt(<key>, <mode>, <file handler opened in binary mode to read data/bytes to read>, <file handler opened in binary mode to write data/None to return data bytes with function [default=None]>, verbose=<True/False [default=False]>)
 ```
 For Encrypting, type:
 ```sh
@@ -65,19 +65,18 @@ To Decrypt, type:
 ```sh
 handler.decrypt()
 ```
-
-When verbose is set to True, an exception is raised rather than providing a status code. By default, a status code would be provided which can be used to raise exceptions in custom way, for example:
+The functions return the data bytes on success when file write parameter is set to None. When verbose is set to True, an exception is raised rather than providing a status code. By default, a status code would be provided which can be used to raise exceptions in custom way, for example:
 ```
 status = handler.decrypt()
 if status == 0:
         print("Success")
 ```
 
-There are 6 different status codes:
+There are 6 different statuses:
 
 | Status Code | Meaning |
 |---------|-----------|
-|0| Operation Successful
+|0/Bytes| Operation Successful
 |404| Data File not Found
 |500| Invalid Mode
 |505| No Key provided
