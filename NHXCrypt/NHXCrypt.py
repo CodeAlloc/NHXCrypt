@@ -2,24 +2,22 @@
 import os, sys
 
 class NHXCrypt:
-	def __init__(self, key, mode, readf, writef, verbose=False):		
+	def __init__(self, key, mode, readf, writef=None, verbose=False):		
 		self.status = 0
-		self.verbose = verbose	
-		if os.path.isfile(readf) != True:
-			if verbose == True: raise FileNotFoundError("Specified data file not found")
-			self.status = 404
+		self.verbose = verbose
+		if type(readf) == bytes:
+			self.data = readf
 		else:
-			read = open(readf, "rb")
-			self.data = read.read()				
-			read.close()
+			self.data = readf.read()
+			readf.close()
 		if mode not in ("8", "16", "32", "64", "128"):
 			if verbose == True: raise SystemError("Invalid Mode")
 			self.status = 500
 		mode = int(mode)
 		if key == "":
-			if verbose == True: raise SystemError("No Key Given")
+			if verbose == True: raise SystemError("No Key Provided")
 			self.status = 505
-		self.write = open(writef, "wb")
+		self.write = writef
 		self.key = key
 		self.mode = mode
 	def encrypt(self):
@@ -58,15 +56,28 @@ class NHXCrypt:
 				else:
 					stoplength = ord(tukey[char])
 			temp = 0
+			out = None
 			for i in range(mode):
 				if temp == stoplength - 1:
-					write.write(chr(tudata).encode())
+					if write != None:
+						write.write(chr(tudata).encode())
+					else:
+						if out == None:
+							out = chr(tudata).encode()
+						else:
+							out += chr(tudata).encode()
 					temp = temp + 1
 				else:
-					write.write(chr(parandom[(count*mode) + i]).encode())
+					if write != None:
+						write.write(chr(parandom[(count*mode) + i]).encode())
+					else:
+						if out == None:
+							out = chr(parandom[(count*mode) + i]).encode()
+						else:
+							out += chr(parandom[(count*mode) + i]).encode()
 					temp = temp + 1
 			count = count + 1
-		return 0
+		return out
 	def decrypt(self):
 		if self.status != 0:
 			return self.status
@@ -84,7 +95,8 @@ class NHXCrypt:
 			acc =  int(len(data) / len(key)) + 1
 			tukey = key * acc
 			tukey = tukey[0:len(data)]
-		count = 0	
+		count = 0
+		out = None
 		for char in range(decbytes):
 			diff = 0
 			if mode < 64:
@@ -108,9 +120,15 @@ class NHXCrypt:
 					tudata = chr(ord(tudata) - diff)
 				except ValueError:
 					tudata = chr((ord(tudata) - diff) * -1)
-			write.write(tudata.encode("latin"))
+			if write != None:
+				write.write(tudata.encode("latin"))
+			else:
+				if out == None:
+					out = tudata.encode("latin")
+				else:
+					out += tudata.encode("latin")
 			count = count + 1
-		return 0
+		return out
 if __name__ == "__main__":
 	if len(sys.argv) < 3:
 		print("Usage: " + sys.argv[0] + " <path to data file> <output file name>")
@@ -119,16 +137,13 @@ if __name__ == "__main__":
 	mode = input("Enter the mode (8/16/32/64/128): ")
 	encdec = input("(E)ncrypt/(D)ecrypt: ").lower()	
 	if encdec == "e":
-		status = NHXCrypt(key, mode, sys.argv[1], sys.argv[2]).encrypt()
+		status = NHXCrypt(key, mode, open(sys.argv[1], "rb"), open(sys.argv[2], "wb")).encrypt()
 	elif encdec == "d":
-		status = NHXCrypt(key, mode, sys.argv[1], sys.argv[2]).decrypt()
+		status = NHXCrypt(key, mode, open(sys.argv[1], "rb"), open(sys.argv[2], "wb")).decrypt()
 	else:
 		print("Exiting...")
 		exit(0)
-	if status == 404:
-		print("Error: Specified Data file doesn't exist")
-		exit(status)
-	elif status == 500:
+	if status == 500:
 		print("Error: Invalid Mode specified")
 		exit(status)
 	elif status == 505:
