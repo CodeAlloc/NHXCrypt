@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="NHXCrypt",
-    version="v1.2.0",
+    version="v1.2.1",
     author="NHXTech",
     author_email="chmuhammadsohaib@gmail.com",
     description="NHXCrypt is a module that uses NHXCrypt--8-128 Algorithms to encrypt and decrypt the files using a single key with a 'mathless' cryptography technique.",
