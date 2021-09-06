@@ -37,6 +37,7 @@ class NHXCrypt:
 			tukey = key
 		parandom = os.urandom(mode * len(data))
 		count = 0
+		out = None
 		for char in range(len(data)):
 			tudata = ord(data[char: char + 1])		
 			if mode < 64:
@@ -56,7 +57,6 @@ class NHXCrypt:
 				else:
 					stoplength = ord(tukey[char])
 			temp = 0
-			out = None
 			for i in range(mode):
 				if temp == stoplength - 1:
 					if write != None:
